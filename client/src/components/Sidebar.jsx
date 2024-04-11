@@ -33,7 +33,8 @@ const Flex = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0px 12px;
 `;
 
 const Logo = styled.div`
@@ -127,8 +128,11 @@ function Sidebar({ menuOpen, setMenuOpen, setDarkMode, darkMode }) {
           <Image src={LogoImage} />
           PodCaster
         </Logo>
-        <Close onClick={() => setMenuOpen(false)}>
-          <CloseRounded />
+        <Close>
+          <CloseRounded
+            onClick={() => setMenuOpen(false)}
+            style={{ cursor: "pointer" }}
+          />
         </Close>
       </Flex>
       {menuItems.map((item) => (
