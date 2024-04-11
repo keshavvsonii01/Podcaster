@@ -19,14 +19,14 @@ const MenuContainer = styled.div`
   display: flex;
   background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text_primary};
-  // @media (max-width: 1100px) {
-  //     position: fixed;
-  //     z-index: 1000;
-  //     width: 100%;
-  //     max-width: 250px;
-  //     left: ${({ setMenuOpen }) => (setMenuOpen ? "0" : "-100%")};
-  //     transition: 0.3s ease-in-out;
-  // }
+  @media (max-width: 1100px) {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    max-width: 250px;
+    left: ${({ setMenuOpen }) => (setMenuOpen ? "0" : "-100%")};
+    transition: 0.3s ease-in-out;
+  }
 `;
 
 const Flex = styled.div`
@@ -66,7 +66,7 @@ const Elements = styled.div`
     gap: 12px;
     cursor: pointer;
     width: 100%;
-    color: ${({ theme }) => theme.text_secondary }};
+    color: ${({ theme }) => theme.text_secondary}};
     &:hover {
         background-color: ${({ theme }) => theme.text_secondary + 50}
     };
@@ -77,61 +77,62 @@ const NavText = styled.div`
 `;
 
 const HR = styled.div`
-    width: 100%;
-    height: 1px;
-    background-color: ${({ theme }) => theme.text_secondary};
-    margin: 10px 0px;
-`
-const menuItems = [
-  {
-    link: "/",
-    name: "Dashboard",
-    icon: <HomeRounded />,
-  },
-  {
-    link: "/search",
-    name: "Search",
-    icon: <SearchRounded />,
-  },
-  {
-    link: "/favourites",
-    name: "Favourited",
-    icon: <FavoriteRounded />,
-  },
-];
+  width: 100%;
+  height: 1px;
+  background-color: ${({ theme }) => theme.text_secondary};
+  margin: 10px 0px;
+`;
 
-const Button = [
-  {
-    func: () => console.log("Upload"),
-    name: "Upload",
-    icon: <UploadRounded />,
-  },
-  {
-    func: () => console.log("Mode!"),
-    name: "Light Mode",
-    icon: <LightModeRounded />,
-  },
-  {
-    func: () => console.log("Logout"),
-    name: "Logout",
-    icon: <LogoutRounded />,
-  },
-];
+function Sidebar({ menuOpen, setMenuOpen, setDarkMode, darkMode }) {
+  const menuItems = [
+    {
+      link: "/",
+      name: "Dashboard",
+      icon: <HomeRounded />,
+    },
+    {
+      link: "/search",
+      name: "Search",
+      icon: <SearchRounded />,
+    },
+    {
+      link: "/favourites",
+      name: "Favourited",
+      icon: <FavoriteRounded />,
+    },
+  ];
 
-function Sidebar() {
+  const Button = [
+    {
+      func: () => console.log("Upload"),
+      name: "Upload",
+      icon: <UploadRounded />,
+    },
+    {
+      func: () => setDarkMode(!darkMode),
+      name: darkMode ? "Light Mode" : "Dark Mode",
+      icon: <LightModeRounded />,
+    },
+    {
+      func: () => console.log("Logout"),
+      name: "Logout",
+      icon: <LogoutRounded />,
+    },
+  ];
+
   return (
-    <MenuContainer>
+    <MenuContainer setMenuOpen={setMenuOpen}>
       <Flex>
         <Logo>
           <Image src={LogoImage} />
           PodCaster
         </Logo>
-        <Close>
+        <Close onClick={() => setMenuOpen(false)}>
           <CloseRounded />
         </Close>
       </Flex>
       {menuItems.map((item) => (
-        <Link to={item.link} style = {{textDecoration: "none"}}>
+        <Link to={item.link} style={{ textDecoration: "none" }}>
           <Elements>
             {item.icon}
             <NavText>{item.name}</NavText>
@@ -140,11 +141,10 @@ function Sidebar() {
       ))}
       <HR />
       {Button.map((item) => (
-          <Elements onClick={item.func}>
-            {item.icon}
-            <NavText>{item.name}</NavText>
-          </Elements>
-        
+        <Elements onClick={item.func}>
+          {item.icon}
+          <NavText>{item.name}</NavText>
+        </Elements>
       ))}
     </MenuContainer>
   );

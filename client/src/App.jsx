@@ -6,19 +6,33 @@ import { BrowserRouter } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
-  background: ${({ theme }) => theme.bg};
+  background: ${({ theme }) => theme.bgLight};
   width: 100%;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: hidden;
 `;
+
+const Fame = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+`;
 function App() {
   const [darkMode, setDarkMode] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(true);
+
   return (
-    <ThemeProvider theme={darkTheme ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <BrowserRouter>
         <Container>
-          <Sidebar />
+          <Sidebar
+            menuOpen={menuOpen}
+            setMenuOpen={setMenuOpen}
+            setDarkMode={setDarkMode}
+            darkMode={darkMode}
+          />
+          <Fame></Fame>
         </Container>
       </BrowserRouter>
     </ThemeProvider>
